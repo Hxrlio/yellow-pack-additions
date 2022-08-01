@@ -18,6 +18,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.trading.MerchantOffer;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.village.VillagerTradesEvent;
+import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -106,18 +107,20 @@ public class ModEvents {
 		}
 	}
 	
-	@SubscribeEvent
-	public static void test(EntityJoinWorldEvent e) {
-		Entity ent = e.getEntity();
-		CompoundTag compTag = ent.saveWithoutId(new CompoundTag());
-		if (compTag.contains(name)) {
-		    compTag.remove(name);
-		    if (tagList.size() == 0) {
-		    	tagList.add(ft);
-			    tagList.add(ft);
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	public static void setHandDropChance(EntityJoinWorldEvent e) {
+		if (!e.getWorld().isClientSide()) {
+		    Entity ent = e.getEntity();
+		    CompoundTag compTag = ent.serializeNBT();
+		    if (compTag.contains(name)) {
+			    compTag.remove(name);
+			    if (tagList.size() == 0) {
+			        tagList.add(ft);
+				    tagList.add(ft);
+			    }
+			    compTag.put(name, tagList);
+			    ent.load(compTag);
 		    }
-		    compTag.put(name, tagList);
-		    ent.load(compTag);
 		}
 	}
 }
