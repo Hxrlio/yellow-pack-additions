@@ -9,4 +9,4 @@ Using it outside of this precise context is of course something you can do, but 
 
 The mod's Curseforge page can be found [here](https://www.curseforge.com/minecraft/mc-mods/yellow-pack-additions)
 
-The modpack's Curseforge page will be linked here once it exists.
+The modpack's Curseforge page can be found [here](https://www.curseforge.com/minecraft/modpacks/hxrls-yellow-pack)
